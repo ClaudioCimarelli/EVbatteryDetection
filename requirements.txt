@@ -1,0 +1,20 @@
+imageio==2.31.1
+kornia==0.7.1
+matplotlib==3.7.1
+matplotlib-inline==0.1.6
+numpy==1.25.0
+open3d==0.18.0
+opencv-contrib-python==4.5.5.62
+pandas==1.5.3
+Pillow==9.4.0
+pydegensac==0.1.2
+pyquaternion==0.9.9
+scikit-image==0.21.0
+scikit-learn==1.2.2
+scipy==1.10.1
+seaborn==0.12.2
+segment-anything @ git+https://github.com/facebookresearch/segment-anything.git@6fdee8f2727f4506cfbbe553e23b895e27956588
+torch==2.0.1+cu118
+torchaudio==2.0.2+cu118
+torchvision==0.15.2+cu118
+ultralytics==8.0.114
