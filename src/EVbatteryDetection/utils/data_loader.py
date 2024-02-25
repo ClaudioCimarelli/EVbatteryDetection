@@ -1,7 +1,7 @@
 import json
 import numpy as np
 import os
-from PIL import Image
+import cv2
 import supervision as sv
 
 
@@ -14,10 +14,12 @@ def read_annotations(input_dir):
                 annotations.append(json.load(f))
     return annotations
 
-def load_image(image_path):
+def load_image(image_path, color=False):
     """Load an image from the given path."""
     try:
-        img = Image.open(image_path)
+        img = cv2.imread(image_path, 0)
+        if color:
+            img = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
         return img
     except IOError:
         return None
