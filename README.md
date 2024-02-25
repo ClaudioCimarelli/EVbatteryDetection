@@ -43,8 +43,8 @@ or
     ├── plots_and_logs/       #Output for plots and logs
     │   └── plot.png              # Image of a plot
     │
-    ├── notebooks/                  # Jupyter notebooks for exploration and presentation
-    │   └── example_usage.ipynb     # Notebook demonstrating the system's use
+    ├── notebooks_and_scripts/     # Jupyter notebooks for exploration and presentation
+    │   └── detector.py     # Script for simple detection
     │
     ├── src/                        # Source code for the project
     │   ├── __init__.py             # Makes src a Python module
