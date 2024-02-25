@@ -33,7 +33,7 @@ def polygon_to_bounding_box(polygon):
     return sv.polygon_to_xyxy(polygon.astype(np.int32))
 
 def process_annotations(input_dir):
-    """Elaborate annotations JSON in path and returns images path and labels dictionary."""
+    """Elaborate annotations JSON in path and returns images path dict and labels dict: [masks, boxes, polygons] list for every img id."""
     annotations = read_annotations(input_dir)
     im2path = {}
     im2label = {}
