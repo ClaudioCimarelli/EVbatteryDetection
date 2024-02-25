@@ -26,7 +26,7 @@ def load_image(image_path, color=False):
 
 def polygon_to_mask(polygon, width, height):
     """Convert polygon to binary mask."""
-    return sv.polygon_to_mask(polygon.astype(np.int32),(width,height))
+    return sv.polygon_to_mask(polygon.astype(np.int32),(width,height)).astype(bool)
 
 def polygon_to_bounding_box(polygon):
     """Calculate bounding box from polygon points."""
@@ -43,7 +43,7 @@ def process_annotations(input_dir):
         masks = []
         boxes = []
         polygons = []
-        im2path[i] = annotation['imagePath']
+        im2path[i] = os.path.join(input_dir, annotation['imagePath'])
         im2label[i] = [masks, boxes, polygons]
         for shape in annotation['shapes']:
             if shape['shape_type'] == 'polygon':
