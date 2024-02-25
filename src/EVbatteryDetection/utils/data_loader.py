@@ -40,12 +40,14 @@ def process_annotations(input_dir):
         height = annotation['imageHeight']
         masks = []
         boxes = []
+        polygons = []
         im2path[i] = annotation['imagePath']
-        im2label[i] = [masks, boxes]
+        im2label[i] = [masks, boxes, polygons]
         for shape in annotation['shapes']:
             if shape['shape_type'] == 'polygon':
                 # Flatten list of points for the mask function
                 polygon = np.array(shape['points'])
+                polygons.append(polygon)
                 mask = polygon_to_mask(polygon, width, height)
                 bounding_box = polygon_to_bounding_box(polygon)
                 masks.append(mask)
