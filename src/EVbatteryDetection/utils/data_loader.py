@@ -6,12 +6,21 @@ import supervision as sv
 
 
 def read_annotations(input_dir):
+    """Reads all annotations JSON from input directory."""
     annotations = []
     for filename in os.listdir(input_dir):
         if filename.endswith('.json'):
             with open(os.path.join(input_dir, filename)) as f:
                 annotations.append(json.load(f))
     return annotations
+
+def load_image(image_path):
+    """Load an image from the given path."""
+    try:
+        img = Image.open(image_path)
+        return img
+    except IOError:
+        return None
 
 def polygon_to_mask(polygon, width, height):
     """Convert polygon to binary mask."""
@@ -22,6 +31,7 @@ def polygon_to_bounding_box(polygon):
     return sv.polygon_to_xyxy(polygon.astype(np.int32))
 
 def process_annotations(input_dir):
+    """Elaborate annotations JSON in path and returns images path and labels dictionary."""
     annotations = read_annotations(input_dir)
     im2path = {}
     im2label = {}

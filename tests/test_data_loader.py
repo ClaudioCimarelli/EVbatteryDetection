@@ -34,5 +34,20 @@ class TestDataLoader(unittest.TestCase):
         self.assertTrue(len(paths) == 10)
         self.assertTrue(len(labels) == 10)
 
+class TestLoadImage(unittest.TestCase):
+
+    def test_load_image_success(self):
+        """Test loading an image successfully."""
+        image_path = '/home/claudio/EVbatteryDetection/data/bmwbatteryinside.png'  # Adjust the path to where your test image is located
+        img = load_image(image_path)
+        self.assertIsNotNone(img, "Failed to load the image.")
+
+    def test_load_image_fail(self):
+        """Test loading an image that does not exist."""
+        image_path = 'tests/nonexistent_image.jpg'
+        img = load_image(image_path)
+        self.assertIsNone(img, "Image loading should fail but didn't.")
+
+
 if __name__ == '__main__':
     unittest.main()
