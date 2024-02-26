@@ -20,10 +20,10 @@ def apply_mask(image, mask, invert=False):
     mask = mask.astype(bool)
     if invert:
         # Invert the mask
-        masked_image[~mask] = 0  # Set pixels where mask_inv is False to 0
+        masked_image[mask] = 0  # Set pixels where mask_inv is False to 0
 
     else:
         # Apply the mask directly
-        masked_image[mask] = 0  # Set pixels where mask_inv is False to 0
+        masked_image[~mask] = 0  # Set pixels where mask_inv is False to 0
 
     return masked_image
