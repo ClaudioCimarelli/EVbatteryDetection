@@ -1,9 +1,11 @@
 imageio
 kornia
+kornia-rs
+kornia_moons
 matplotlib
 numpy
 open3d
-opencv-contrib-python
+opencv-python==4.8.0.76
 pandas
 Pillow
 pydegensac

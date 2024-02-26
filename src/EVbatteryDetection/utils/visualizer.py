@@ -2,9 +2,9 @@ import cv2
 import numpy as np
 
 def draw_matches(img1, keypoints1, img2, keypoints2, matches, draw_now=False):
-    out = cv2.drawMatches(img1, keypoints1, img2, keypoints2, matches, None)
+    out = cv2.drawMatches(img1, keypoints1, img2, keypoints2, matches, None, flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
     if draw_now:
-        cv2.imshow('Detected Object', out)
+        cv2.imshow('Matched Keypoints', out)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
     return out
@@ -64,7 +64,7 @@ def overlay_mask_with_border(image, mask, polygon=None, color=(0, 255, 0), borde
         overlayed_image = draw_detected_object(overlayed_image, polygon, border_color=border_color, border_thickness=border_thickness)
 
     if draw_now:
-        cv2.imshow('Detected Object', overlayed_image)
+        cv2.imshow('Detected Object Mask', overlayed_image)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 
