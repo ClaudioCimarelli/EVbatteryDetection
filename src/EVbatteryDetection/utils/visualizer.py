@@ -52,6 +52,8 @@ def overlay_mask_with_border(image, mask, polygon=None, color=(0, 255, 0), borde
     - overlayed_image: Color image with the mask overlayed and border added.
     """
     # Create an overlay image with the specified color where the mask is positive
+    if len(image.shape) == 2:
+        image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
     overlay = np.zeros_like(image, dtype=np.uint8)
     for i in range(3):  # Assuming BGR format
         overlay[:, :, i] = mask * color[i]
