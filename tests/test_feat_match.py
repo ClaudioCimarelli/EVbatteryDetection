@@ -16,8 +16,8 @@ class TestFeatureMatcher(unittest.TestCase):
         kp1, des1 = extractor.detect_and_compute(img1)
         kp2, des2 = extractor.detect_and_compute(img2)
 
-        matches = matcher.match(des1, des2)
-        self.assertTrue(len(matches) > 0)
+        match_res = matcher.match(kp1, kp2, des1, des2)
+        self.assertTrue(len(match_res.matches) > 0)
 
     def test_bf_matcher(self):
         extractor = OpenCVFeatureExtractor('SIFT')
@@ -29,15 +29,17 @@ class TestFeatureMatcher(unittest.TestCase):
         kp1, des1 = extractor.detect_and_compute(img1)
         kp2, des2 = extractor.detect_and_compute(img2)
 
-        matches = matcher.match(des1, des2)
-        self.assertTrue(len(matches) > 0)
+        match_res = matcher.match(kp1, kp2, des1, des2)
+        self.assertTrue(len(match_res.matches) > 0)
 
     def test_kornia_matcher(self):
         matcher = KorniaMatcher()
 
         img1 ='data/images/all/video1_00111121.jpg'
         img2 = 'data/images/all/video1_00111219.jpg'
-        kps1, kps2, matches = matcher.extract_and_match(img1, img2)
+
+        match_res = matcher.match(matcher.img_to_tensor(img1), matcher.img_to_tensor(img2))
+        kps1, kps2, matches = match_res.kps1, match_res.kps2, match_res.matches
         img1 = cv2.imread(img1)
         img2 = cv2.imread(img2)
         draw_matches(img1, kps1, img2, kps2, matches, True)
