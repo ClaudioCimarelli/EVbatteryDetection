@@ -1,8 +1,8 @@
 import unittest
 import cv2
 import numpy as np
-from EVbatteryDetection.utils.visualizer import Visualizer  # Assuming this is your visualizer class
-from EVbatteryDetection.vision_system.feature_extraction import FeatureExtractor
+from EVbatteryDetection.utils.visualizer import *  # Assuming this is your visualizer class
+from EVbatteryDetection.vision_system.feature_extraction import OpenCVFeatureExtractor
 from EVbatteryDetection.vision_system.feature_matching import OpenCVFeatureMatcher
 
 class TestVisualizer(unittest.TestCase):
@@ -13,7 +13,7 @@ class TestVisualizer(unittest.TestCase):
         img2 = cv2.imread('data/images/templates/video1_00123658.jpg', 0)
 
         # Initialize FeatureExtractor and FeatureMatcher
-        extractor = FeatureExtractor(method='SIFT')
+        extractor = OpenCVFeatureExtractor(method='SIFT')
         matcher = OpenCVFeatureMatcher(method='BF')
 
         # Extract features
@@ -23,12 +23,9 @@ class TestVisualizer(unittest.TestCase):
         # Match features
         matches = matcher.match(des1, des2)
 
-        # Initialize Visualizer
-        visualizer = Visualizer()
-
         # Test draw_matches method
         try:
-            visualizer.draw_matches(img1, kp1, img2, kp2, matches)
+            draw_matches(img1, kp1, img2, kp2, matches, True)
             print("Visualization successful. Please inspect the output visually.")
         except Exception as e:
             self.fail(f"Visualization failed with error: {e}")
