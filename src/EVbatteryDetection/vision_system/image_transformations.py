@@ -11,4 +11,4 @@ class HomographyEstimator:
     def transform_points(self, points):
         points = np.array(points, np.float32)
         points = points.reshape((-1, 1, 2))
-        return cv2.perspectiveTransform(points, self.H)
+        return cv2.perspectiveTransform(points, self.H).reshape(-1, 2)
