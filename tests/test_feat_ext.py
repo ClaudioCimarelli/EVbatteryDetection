@@ -1,10 +1,10 @@
 import unittest
 import cv2
-from EVbatteryDetection.vision_system.feature_extraction import FeatureExtractor
+from EVbatteryDetection.vision_system.feature_extraction import OpenCVFeatureExtractor
 
 class TestFeatureExtractor(unittest.TestCase):
     def test_detect_and_compute(self):
-        extractor = FeatureExtractor('SIFT')
+        extractor = OpenCVFeatureExtractor('SIFT')
         img = cv2.imread('data/images/module.jpg', 0)
         keypoints, descriptors = extractor.detect_and_compute(img)
         self.assertTrue(len(keypoints) > 0)

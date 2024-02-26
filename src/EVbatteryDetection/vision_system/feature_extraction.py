@@ -1,6 +1,6 @@
 import cv2
 
-class FeatureExtractor:
+class OpenCVFeatureExtractor:
     def __init__(self, method='SIFT'):
         if method == 'SIFT':
             self.detector = cv2.SIFT_create()

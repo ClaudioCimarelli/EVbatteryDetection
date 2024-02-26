@@ -1,12 +1,12 @@
 import unittest
 import cv2
-from EVbatteryDetection.vision_system.feature_extraction import FeatureExtractor
+from EVbatteryDetection.vision_system.feature_extraction import OpenCVFeatureExtractor
 from EVbatteryDetection.vision_system.feature_matching import OpenCVFeatureMatcher
 
 class TestFeatureMatcher(unittest.TestCase):
 
     def test_flann_matcher(self):
-        extractor = FeatureExtractor('SIFT')
+        extractor = OpenCVFeatureExtractor('SIFT')
         matcher = OpenCVFeatureMatcher('FLANN')
 
         img1 = cv2.imread('data/images/module.jpg', 0)
@@ -19,7 +19,7 @@ class TestFeatureMatcher(unittest.TestCase):
         self.assertTrue(len(matches) > 0)
 
     def test_bf_matcher(self):
-        extractor = FeatureExtractor('SIFT')
+        extractor = OpenCVFeatureExtractor('SIFT')
         matcher = OpenCVFeatureMatcher('BF')
 
         img1 = cv2.imread('data/images/module.jpg', 0)
