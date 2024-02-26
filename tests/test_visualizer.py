@@ -21,11 +21,11 @@ class TestVisualizer(unittest.TestCase):
         kp2, des2 = extractor.detect_and_compute(img2)
 
         # Match features
-        matches = matcher.match(des1, des2)
+        match_res = matcher.match(kp1, kp2, des1, des2)
 
         # Test draw_matches method
         try:
-            draw_matches(img1, kp1, img2, kp2, matches, True)
+            draw_matches(img1, kp1, img2, kp2, match_res.matches, True)
             print("Visualization successful. Please inspect the output visually.")
         except Exception as e:
             self.fail(f"Visualization failed with error: {e}")
