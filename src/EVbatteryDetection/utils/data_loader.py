@@ -17,9 +17,10 @@ def read_annotations(input_dir):
 def load_image(image_path, color=False):
     """Load an image from the given path."""
     try:
-        img = cv2.imread(image_path, 0)
         if color:
-            img = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
+            img = cv2.imread(image_path)
+        else:
+            img = cv2.imread(image_path, 0)
         return img
     except IOError:
         return None
@@ -27,6 +28,10 @@ def load_image(image_path, color=False):
 def polygon_to_mask(polygon, width, height):
     """Convert polygon to binary mask."""
     return sv.polygon_to_mask(polygon.astype(np.int32),(width,height)).astype(bool)
+
+def mask_to_polygons(mask):
+    """Convert polygon to binary mask."""
+    return sv.mask_to_polygons(mask.astype(bool))
 
 def polygon_to_bounding_box(polygon):
     """Calculate bounding box from polygon points."""
