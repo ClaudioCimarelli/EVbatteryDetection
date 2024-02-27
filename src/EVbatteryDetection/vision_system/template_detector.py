@@ -58,10 +58,9 @@ class TemplateDetector():
         permuted_indices = np.random.choice(range(len(self.template_score)), len(self.template_score), replace=False, p=normalized_scores)
         return permuted_indices
 
-    def one_templ_detection(self, path, match_thr=150)-> DetectionResult:
+    def one_templ_detection(self, path, match_inlrs_thr=150, h_inlrs_thr=.5)-> DetectionResult:
 
         det_res = None
-        max_inliers = 0
 
         img = load_image(path, color=True)
         img = cv2.resize(img, self.img_shape, interpolation=cv2.INTER_AREA)
@@ -78,7 +77,7 @@ class TemplateDetector():
             kps1, kps2, matches = match_res.kps1, match_res.kps2, match_res.matches
 
             # Homography and perspective transform if enough matches
-            if len(matches) > match_thr:
+            if len(matches) > match_inlrs_thr:
                 src_pts = np.float32([kps1[m.queryIdx].pt for m in matches]).reshape(-1, 1, 2)
                 dst_pts = np.float32([kps2[m.trainIdx].pt for m in matches]).reshape(-1, 1, 2)
 
@@ -87,7 +86,7 @@ class TemplateDetector():
                 print(f"Homography took time: {perf_counter()-t1:.2f} secs")
 
                 h_inlrs = homography_estimator.inliers.astype(bool)[:, 0]
-                if h_inlrs.sum()> max_inliers:
+                if h_inlrs.sum()/len(matches) > h_inlrs_thr :
                     # inlr_matches = [m for i, m in enumerate(matches) if h_inlrs[i]]
                     # inlr_kps1 = [kps1[m.queryIdx] for m in inlr_matches]
                     # inlr_kps2 = [kps2[m.trainIdx] for m in inlr_matches]
@@ -98,7 +97,6 @@ class TemplateDetector():
 
                     det_res = DetectionResult(proj_poly, t_id, self.img_shape, match_res)
                     max_inliers = h_inlrs.sum()
-
                     break
 
 
